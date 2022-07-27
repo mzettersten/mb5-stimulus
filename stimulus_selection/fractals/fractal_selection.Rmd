@@ -57,8 +57,10 @@ get_png_entropy <- function(path) {
 ## Complexity measures
 
 Compute some measures of complexity for each image:
-* compression complexity
-* image entropy
+
+* compression complexity (https://search.r-project.org/CRAN/refmans/imagefluency/html/img_complexity.html)
+
+* image entropy (https://rdrr.io/rforge/CulturalAnalytics/man/imageEntropy.html)
 
 ```{r}
 #image paths
@@ -72,7 +74,7 @@ d <- data.frame(
   mutate(
     rel_path = paste0("images/",file_name),
     full_path = here(image_path,file_name),
-    git_path = paste0("https://github.com/manybabies/mb5-analysis/blob/master/stimulus_selection/fractals/images/",file_name))
+    git_path = paste0("https://raw.githubusercontent.com/mzettersten/mb5-stimulus/master/stimulus_selection/fractals/images/",file_name))
 
 d <- d %>%
   mutate(file_size = lapply(full_path, function(path) get_file_size(path))) %>%
@@ -103,7 +105,7 @@ Table to sort fractals by various complexity metrics
 
 ```{r}
 d %>%
-  select(-path, -full_path) %>%
+  select(-path, -full_path,-git_path) %>%
   DT::datatable(escape=F)
 ```
 
